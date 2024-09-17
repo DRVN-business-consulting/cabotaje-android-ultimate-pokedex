@@ -14,8 +14,11 @@ import dev.jay.ultimatepokedex.secure_local_db.entity.dto.UserDataDTO;
 import dev.jay.ultimatepokedex.secure_local_db.helper.SecureDBHelper;
 
 public class UserDataDao {
-    public static boolean upsertData(String username, String imageUrl) {
+    public static boolean upsertData(String username) {
+        String imageUrl = getImageUrl(username);
+
         SQLiteDatabase db = SecureDBHelper.getInstance().getSecureDatabase();
+
         ContentValues values = new ContentValues();
         values.put(UserDataContract.UserDataEntry.COLUMN_USERNAME, username);
         values.put(UserDataContract.UserDataEntry.COLUMN_IMAGE_URL, imageUrl);

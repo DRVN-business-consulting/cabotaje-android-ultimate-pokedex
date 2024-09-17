@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import dev.jay.ultimatepokedex.AvatarPickerActivity;
 import dev.jay.ultimatepokedex.LoginActivity;
 import dev.jay.ultimatepokedex.R;
 import dev.jay.ultimatepokedex.api.API;
@@ -31,6 +33,7 @@ import retrofit2.Response;
 
 public class TrainerFragment extends Fragment {
 
+    String username;
     ImageView ivAvatar;
     EditText  editPassword, editName, editAge, editAdd;
 
@@ -49,28 +52,29 @@ public class TrainerFragment extends Fragment {
         editName =  view.findViewById(R.id.editName);
         editAge =  view.findViewById(R.id.editAge);
         editAdd =  view.findViewById(R.id.editAdd);
-
-        view.findViewById(R.id.btnUpdate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String password = editPassword.getText().toString();
-                String name = editName.getText().toString();
-                String age = editAge.getText().toString();
-                String add = editAdd.getText().toString();
-                API.userApi().updateMe(new UpdateUserDto(password, name, add, Integer.parseInt(age))).enqueue(new Callback<UserDto>() {
-                    @Override
-                    public void onResponse(Call<UserDto> call, Response<UserDto> response) {
-                        if(response.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                        }
+        view.findViewById(R.id.btnImage).setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), AvatarPickerActivity.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+        });
+        view.findViewById(R.id.btnUpdate).setOnClickListener(view1 -> {
+            String password = editPassword.getText().toString();
+            String name = editName.getText().toString();
+            String age = editAge.getText().toString();
+            String add = editAdd.getText().toString();
+            API.userApi().updateMe(new UpdateUserDto(password, name, add, Integer.parseInt(age))).enqueue(new Callback<UserDto>() {
+                @Override
+                public void onResponse(Call<UserDto> call, Response<UserDto> response) {
+                    if(response.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<UserDto> call, Throwable t) {
+                @Override
+                public void onFailure(Call<UserDto> call, Throwable t) {
 
-                    }
-                });
-            }
+                }
+            });
         });
         view.findViewById(R.id.btnLogout).setOnClickListener(btView -> {
             API.userApi().logout().enqueue(new Callback<SuccessDto>() {
@@ -99,16 +103,19 @@ public class TrainerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("test", "sdd");
         API.userApi().me().enqueue(new Callback<UserDto>() {
             @Override
             public void onResponse(Call<UserDto> call, Response<UserDto> response) {
                 if(response.isSuccessful()) {
                     UserDto userDto = response.body();
                     String imageUrl = UserDataDao.getImageUrl(userDto.getUsername());
+                    username = userDto.getUsername();
                     editName.setText(userDto.getName());
                     editAdd.setText(userDto.getAddress());
                     editAge.setText(String.valueOf(userDto.getAge()));
-                    Glide.with(getActivity()).load(imageUrl).circleCrop().into(ivAvatar);
+                    Log.d("imageUrl", imageUrl + ">>");
+                    Glide.with(getActivity()).load(imageUrl).circleCrop().error( "https://cdn-icons-png.flaticon.com/512/362/362003.png").into(ivAvatar);
                 }
             }
 

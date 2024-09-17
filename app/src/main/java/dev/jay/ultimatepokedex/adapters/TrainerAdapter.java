@@ -13,13 +13,17 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.jay.ultimatepokedex.AvatarPickerActivity;
 import dev.jay.ultimatepokedex.R;
+import dev.jay.ultimatepokedex.secure_local_db.dao.UserDataDao;
 
 public class TrainerAdapter extends RecyclerView.Adapter<TrainerAdapter.ViewHolder> {
 
-    public List<String> images = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
+    private String username;
 
-    public TrainerAdapter(List<String> images) {
+    public TrainerAdapter(String username, List<String> images) {
+        this.username = username;
         this.images = images;
     }
 
@@ -47,7 +51,11 @@ public class TrainerAdapter extends RecyclerView.Adapter<TrainerAdapter.ViewHold
         }
 
         public void bind(String url) {
-            Glide.with(itemView.getContext()).load(url).into(ivAvatar);
+            Glide.with(itemView.getContext()).load(url).centerCrop().into(ivAvatar);
+            itemView.setOnClickListener(view -> {
+                UserDataDao.updateImageUrl(username, url);
+                ((AvatarPickerActivity) itemView.getContext()).finish();
+            });
         }
     }
 }

@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     UserDto userDto = response.body();
                     if (userDto != null) {
                         Log.d("JIANDDEBUG", "Username: " + userDto.getUsername());
-                        UserDataDao.upsertData(userDto.getUsername(), "https://cdn-icons-png.flaticon.com/512/362/362003.png");
+                        UserDataDao.upsertData(userDto.getUsername());
                         startActivity(new Intent(LoginActivity.this, PokedexActivity.class));
                     }
                 } else {

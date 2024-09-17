@@ -23,17 +23,17 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@drawable/pokeball_pokemon_svgrepo_com"
-
-                android:layout_marginBottom="15dp"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
             <Button
-                style="?attr/materialIconButtonStyle"
-                android:id="@+id/btnDelete"
+                 android:id="@+id/btnImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_image"
-                app:iconSize="35sp"
-                app:iconTint="#0D47A1"
-                android:layout_marginTop="20dp"
+                app:iconSize="20sp"
+                android:textSize="15sp"
+                android:text="Change Avatar"
                 android:layout_gravity="bottom|center"
                 />
         </FrameLayout>
