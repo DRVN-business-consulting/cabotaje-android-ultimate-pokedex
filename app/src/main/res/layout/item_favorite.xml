@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="20dp"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="10dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            tools:src="@drawable/pokeball_pokemon_svgrepo_com"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            tools:text="Bulbasaur"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ivThumbnail"/>
+
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialIconButtonStyle"
+            android:id="@+id/btnFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_favorite"
+            app:iconTint="#FFEB3B"
+            app:iconSize="30dp"
+            android:layout_below="@id/divider"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listFragment"
+        android:title="Pokemon List"
+        android:icon="@drawable/pokeball_pokemon_catch_svgrepo_com"/>
+    <item
+        android:id="@+id/favouritesFragment"
+        android:title="Favorites"
+        android:icon="@drawable/ic_star"/>
+    <item
+        android:id="@+id/trainerFragment"
+        android:title="Trainer"
+        android:icon="@drawable/ic_person"/>
+</menu>
